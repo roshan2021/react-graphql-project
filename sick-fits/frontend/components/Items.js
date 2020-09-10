@@ -21,9 +21,11 @@ const ALL_ITEMS_QUERY = gql `
             <div>
                 <p>Items!</p>
                 <Query query={ALL_ITEMS_QUERY}>
-                    {(payload) => {
-                        console.log(payload);
-                        return <p>Hey I'm the child of query!</p>
+                    {({ data, error, loading }) => {
+                        if (loading) return <p>Loading...</p>
+                        if (error) return <p>Error: {error.message}</p>
+                        console.log(data);
+                        return <p>I found {data.items.length} items!</p>
                     }}
                 </Query>
             </div>
